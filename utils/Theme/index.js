@@ -4,6 +4,7 @@ const colors = {
     primary: {
         50: "#5b88b8",
         100: "#3070b8",
+        grey: "#999999",
     },
 };
 
