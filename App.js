@@ -1,12 +1,25 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-
+import { Platform, SafeAreaView, StyleSheet, Text, View, useColorScheme } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Box, NativeBaseProvider, useColorModeValue } from "native-base";
+import theme from "./utils/Theme";
+import StatusBar from "./components/StatusBar";
+import Main from "./app/Main";
 export default function App() {
     return (
-        <View style={styles.container}>
-            <Text>Open up App.js to start working on your app!</Text>
-            <StatusBar style="auto" />
-        </View>
+        <NativeBaseProvider theme={theme}>
+            <StatusBar
+                animated
+                hideTransitionAnimation="slide"
+                translucent
+                networkActivityIndicatorVisible={false}
+            />
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <NavigationContainer>
+                    <Main />
+                </NavigationContainer>
+            </GestureHandlerRootView>
+        </NativeBaseProvider>
     );
 }
 
@@ -16,5 +29,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
+    },
+    safe_area: {
+        paddingTop: Platform.OS == "android" ? StatusBar.currentHeight : 0,
     },
 });
