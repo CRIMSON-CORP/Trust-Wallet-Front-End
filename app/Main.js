@@ -8,13 +8,25 @@ import Discover from "../screens/Discover";
 import DApps from "../screens/Discover";
 import Settings from "../screens/Settings";
 import BottomTabs from "../components/BottomTabs";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign, Ionicons } from "@expo/vector-icons";
 import { useTheme } from "native-base";
 import TabIconWrapper from "../components/TabIconWrapper";
 
 const BottomTab = createBottomTabNavigator();
 export default function Main() {
     const { colors } = useTheme();
+    const options = {
+        tabBarActiveTintColor: colors.primary[100],
+        tabBarInactiveTintColor: colors.primary.grey,
+        tabBarLabelStyle: {
+            fontSize: 11,
+        },
+        tabBarStyle: {
+            height: 60,
+            paddingBottom: 8,
+            paddingTop: 8,
+        },
+    };
     return (
         <BottomTab.Navigator initialRouteName="Wallet" backBehavior="initialRoute">
             <BottomTab.Screen
@@ -25,28 +37,70 @@ export default function Main() {
                         return (
                             <TabIconWrapper
                                 Icon={
-                                    <MaterialCommunityIcons name="shield" size={30} color={color} />
+                                    <MaterialCommunityIcons name="shield" size={24} color={color} />
                                 }
                                 focused={focused}
                             />
                         );
                     },
                     tabBarAccessibilityLabel: "Wallet",
-                    tabBarActiveTintColor: colors.primary[100],
-                    tabBarInactiveTintColor: colors.primary.grey,
-                    tabBarStyle: {
-                        height: 80,
-                        paddingBottom: 10,
-                        backgroundColor: "red",
-                    },
-                    tabBarLabelStyle: {
-                        fontSize: 18,
-                    },
+                    ...options,
                 }}
             />
-            <BottomTab.Screen name="Discover" component={Discover} />
-            <BottomTab.Screen name="DApps" component={DApps} />
-            <BottomTab.Screen name="Settings" component={Settings} />
+            <BottomTab.Screen
+                name="Discover"
+                component={Discover}
+                options={{
+                    tabBarIcon: ({ color, focused }) => {
+                        return (
+                            <TabIconWrapper
+                                Icon={
+                                    <MaterialCommunityIcons
+                                        name="compass"
+                                        size={24}
+                                        color={color}
+                                    />
+                                }
+                                focused={focused}
+                            />
+                        );
+                    },
+                    tabBarAccessibilityLabel: "Discover",
+                    ...options,
+                }}
+            />
+            <BottomTab.Screen
+                name="DApps"
+                component={DApps}
+                options={{
+                    tabBarIcon: ({ color, focused }) => {
+                        return (
+                            <TabIconWrapper
+                                Icon={<AntDesign name="appstore1" size={24} color={color} />}
+                                focused={focused}
+                            />
+                        );
+                    },
+                    tabBarAccessibilityLabel: "Wallet",
+                    ...options,
+                }}
+            />
+            <BottomTab.Screen
+                name="Settings"
+                component={Settings}
+                options={{
+                    tabBarIcon: ({ color, focused }) => {
+                        return (
+                            <TabIconWrapper
+                                Icon={<Ionicons name="md-settings-sharp" size={24} color={color} />}
+                                focused={focused}
+                            />
+                        );
+                    },
+                    tabBarAccessibilityLabel: "Wallet",
+                    ...options,
+                }}
+            />
         </BottomTab.Navigator>
     );
 }

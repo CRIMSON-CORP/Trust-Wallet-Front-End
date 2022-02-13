@@ -1,5 +1,7 @@
+import { View } from "react-native";
+
 const TabIconWrapper = ({ Icon, focused }) => {
-    return Icon;
+    return <View>{Icon}</View>;
 };
 
 export default TabIconWrapper;
