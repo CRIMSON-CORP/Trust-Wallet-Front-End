@@ -1,12 +1,17 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { Center } from "native-base";
+import { Box, Center } from "native-base";
+import Ripple from "../../components/Ripple";
+import { useTheme } from "@react-navigation/native";
 
 const Wallet = () => {
+    const { colors } = useTheme();
     return (
-        <Center style={{ flex: 1 }}>
-            <Text>Wallet Screen</Text>
-        </Center>
+        <Box>
+            <Box>
+                <Box></Box>
+            </Box>
+        </Box>
     );
 };
 

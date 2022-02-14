@@ -1,13 +1,39 @@
-import { HStack } from "native-base";
-import React from "react";
-import { Text, View, TouchableNativeFeedback } from "react-native";
+import { HStack, VStack, Box, useTheme, Pressable } from "native-base";
+import React, { useEffect } from "react";
+import { Text, View, TouchableNativeFeedback, Touchable } from "react-native";
 
-// Icons
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign, Ionicons } from "@expo/vector-icons";
+import Animated, {
+    useSharedValue,
+    crea,
+    useAnimatedProps,
+    interpolateColor,
+    withTiming,
+    useAnimatedStyle,
+} from "react-native-reanimated";
+import Ripple from "../Ripple";
+
 function BottomTabs({ state, descriptors, navigation }) {
-    const ScreenIcons = [<MaterialCommunityIcons name="shield" size={24} color="black" />];
+    const ScreenIcons = [
+        {
+            Provider: MaterialCommunityIcons,
+            name: "shield",
+        },
+        {
+            Provider: MaterialCommunityIcons,
+            name: "compass",
+        },
+        {
+            Provider: AntDesign,
+            name: "appstore1",
+        },
+        {
+            Provider: Ionicons,
+            name: "md-settings-sharp",
+        },
+    ];
     return (
-        <HStack justifyContent="space-evenly" alignItems={"center"}>
+        <HStack alignItems={"center"} style={{ overflow: "hidden" }}>
             {state.routes.map(({ key, name, params }, index) => {
                 const isFocused = state.index === index;
                 const onPress = () => {
@@ -23,12 +49,13 @@ function BottomTabs({ state, descriptors, navigation }) {
                     }
                 };
                 return (
-                    <TouchableNativeFeedback key={key} onPress={onPress}>
-                        <View style={{ padding: 20 }}>
-                            <View>{ScreenIcons[index]}</View>
-                            <Text>{name}</Text>
-                        </View>
-                    </TouchableNativeFeedback>
+                    <Tab
+                        key={key}
+                        name={name}
+                        onPress={onPress}
+                        icon={ScreenIcons[index]}
+                        focused={isFocused}
+                    />
                 );
             })}
         </HStack>
@@ -36,3 +63,31 @@ function BottomTabs({ state, descriptors, navigation }) {
 }
 
 export default BottomTabs;
+
+function Tab({ name, onPress, icon: { Provider, name: iconName }, focused }) {
+    const { colors } = useTheme();
+    const color = useSharedValue(0);
+    const AnimatedIcon = Animated.createAnimatedComponent(Provider);
+    const AnimatedTextStyle = useAnimatedStyle(() => ({
+        color: interpolateColor(
+            color.value,
+            [0, 1],
+            [colors.primary.grey, colors.primary[100]],
+            "RGB"
+        ),
+    }));
+
+    useEffect(() => {
+        color.value = focused ? withTiming(1) : withTiming(0);
+    }, [focused]);
+    return (
+        <Ripple style={{ padding: 8, flex: 1 }} onPress={onPress} overflow={false}>
+            <VStack alignItems="center">
+                <Box>
+                    <AnimatedIcon name={iconName} size={24} style={AnimatedTextStyle} />
+                </Box>
+                <Animated.Text style={[{ fontSize: 11 }, AnimatedTextStyle]}>{name}</Animated.Text>
+            </VStack>
+        </Ripple>
+    );
+}
