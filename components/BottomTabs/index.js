@@ -81,12 +81,14 @@ function Tab({ name, onPress, icon: { Provider, name: iconName }, focused }) {
         color.value = focused ? withTiming(1) : withTiming(0);
     }, [focused]);
     return (
-        <Ripple style={{ padding: 8, flex: 1 }} onPress={onPress} overflow={false}>
+        <Ripple style={{ padding: 8, flex: 1 }} onPress={onPress} overflow={false} centered={false}>
             <VStack alignItems="center">
-                <Box>
+                <Box mb={"1"}>
                     <AnimatedIcon name={iconName} size={24} style={AnimatedTextStyle} />
                 </Box>
-                <Animated.Text style={[{ fontSize: 11 }, AnimatedTextStyle]}>{name}</Animated.Text>
+                <Animated.Text style={[{ fontSize: 12, letterSpacing: 0.5 }, AnimatedTextStyle]}>
+                    {name}
+                </Animated.Text>
             </VStack>
         </Ripple>
     );
