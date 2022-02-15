@@ -2,7 +2,7 @@ import { extendTheme } from "native-base";
 
 const colors = {
     primary: {
-        50: "#5b88b8",
+        50: "#4880c0",
         100: "#3070b8",
         grey: "#666666",
     },

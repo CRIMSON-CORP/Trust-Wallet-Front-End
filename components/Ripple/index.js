@@ -35,7 +35,7 @@ export default function Ripple({
             locationX.value = e.x;
             locationY.value = e.y;
             scale.value = withTiming(overlaySize);
-            opacity.value = withTiming(0.9, undefined, () => runOnJS(onPress)());
+            opacity.value = withTiming(0.9, undefined, () => onPress && runOnJS(onPress)());
         },
         onFinish: () => {
             opacity.value = withDelay(150, withTiming(0));

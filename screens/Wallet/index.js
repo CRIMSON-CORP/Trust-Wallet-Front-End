@@ -1,17 +1,23 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { Box, Center } from "native-base";
-import Ripple from "../../components/Ripple";
-import { useTheme } from "@react-navigation/native";
-
+import { Box, useTheme, VStack } from "native-base";
+import TopBar from "./TopBAr";
+import WalletName from "./WalletName";
+import ActionButtons from "./ActionButtons";
+import WalletDetails from "./WalletDetails";
 const Wallet = () => {
     const { colors } = useTheme();
+
     return (
-        <Box>
-            <Box>
-                <Box></Box>
+        <VStack bg={colors.primary[100]} flex={1} space="3" justifyContent={"space-between"}>
+            <VStack space={"8"} p={"3"}>
+                <TopBar />
+                <WalletName />
+                <ActionButtons />
+            </VStack>
+            <Box bg="white" flex={1} borderTopRadius={15}>
+                <WalletDetails />
             </Box>
-        </Box>
+        </VStack>
     );
 };
 

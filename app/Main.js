@@ -15,6 +15,9 @@ export default function Main() {
             initialRouteName="Wallet"
             backBehavior="initialRoute"
             tabBar={(props) => <BottomTabs {...props} />}
+            screenOptions={{
+                headerStatusBarHeight: 0,
+            }}
         >
             <BottomTab.Screen name="Wallet" component={Wallet} options={{ headerShown: false }} />
             <BottomTab.Screen name="Discover" component={Discover} />
