@@ -2,10 +2,11 @@ import React from "react";
 import { Box, Text, VStack } from "native-base";
 import TabSwitcher from "./TabSwitcher";
 
+const TABS = ["Tokens", "NFTs"];
 const WalletDetails = () => {
     return (
         <VStack>
-            <TabSwitcher />
+            <TabSwitcher tabs={TABS} />
         </VStack>
     );
 };
