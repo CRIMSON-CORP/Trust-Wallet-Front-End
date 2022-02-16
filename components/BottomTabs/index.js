@@ -33,7 +33,7 @@ function BottomTabs({ state, navigation }) {
         },
     ];
     return (
-        <Box shadow={"0"} w="100%">
+        <Box borderTopColor={"gray.100"} borderTopWidth={2}>
             <HStack alignItems={"center"} style={{ overflow: "hidden" }}>
                 {state.routes.map(({ key, name, params }, index) => {
                     const isFocused = state.index === index;
