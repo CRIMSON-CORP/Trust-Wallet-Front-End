@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, useTheme, VStack } from "native-base";
+import { Box, ScrollView, useTheme, VStack } from "native-base";
 import TopBar from "./TopBAr";
 import WalletName from "./WalletName";
 import ActionButtons from "./ActionButtons";
@@ -9,14 +9,20 @@ const Wallet = () => {
 
     return (
         <VStack bg={colors.primary[100]} flex={1} space="3" justifyContent={"space-between"}>
-            <VStack space={"8"} p={"3"}>
+            <Box p={"3"}>
                 <TopBar />
-                <WalletName />
-                <ActionButtons />
-            </VStack>
-            <Box bg="white" flex={1} borderTopRadius={15}>
-                <WalletDetails />
             </Box>
+            <ScrollView contentContainerStyle={{ flex: 1 }}>
+                <VStack flex={1} space={"2"}>
+                    <VStack space={"8"} p={"3"}>
+                        <WalletName />
+                        <ActionButtons />
+                    </VStack>
+                    <Box bg="white" flex={1} borderTopRadius={15}>
+                        <WalletDetails />
+                    </Box>
+                </VStack>
+            </ScrollView>
         </VStack>
     );
 };

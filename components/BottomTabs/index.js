@@ -13,7 +13,7 @@ import Animated, {
 } from "react-native-reanimated";
 import Ripple from "../Ripple";
 
-function BottomTabs({ state, descriptors, navigation }) {
+function BottomTabs({ state, navigation }) {
     const ScreenIcons = [
         {
             Provider: MaterialCommunityIcons,
@@ -33,32 +33,34 @@ function BottomTabs({ state, descriptors, navigation }) {
         },
     ];
     return (
-        <HStack alignItems={"center"} style={{ overflow: "hidden" }}>
-            {state.routes.map(({ key, name, params }, index) => {
-                const isFocused = state.index === index;
-                const onPress = () => {
-                    const event = navigation.emit({
-                        type: "tabPress",
-                        target: key,
-                        canPreventDefault: true,
-                    });
+        <Box shadow={"0"} w="100%">
+            <HStack alignItems={"center"} style={{ overflow: "hidden" }}>
+                {state.routes.map(({ key, name, params }, index) => {
+                    const isFocused = state.index === index;
+                    const onPress = () => {
+                        const event = navigation.emit({
+                            type: "tabPress",
+                            target: key,
+                            canPreventDefault: true,
+                        });
 
-                    if (!isFocused && !event.defaultPrevented) {
-                        // The `merge: true` option makes sure that the params inside the tab screen are preserved
-                        navigation.navigate({ name: name, merge: true });
-                    }
-                };
-                return (
-                    <Tab
-                        key={key}
-                        name={name}
-                        onPress={onPress}
-                        icon={ScreenIcons[index]}
-                        focused={isFocused}
-                    />
-                );
-            })}
-        </HStack>
+                        if (!isFocused && !event.defaultPrevented) {
+                            // The `merge: true` option makes sure that the params inside the tab screen are preserved
+                            navigation.navigate({ name: name, merge: true });
+                        }
+                    };
+                    return (
+                        <Tab
+                            key={key}
+                            name={name}
+                            onPress={onPress}
+                            icon={ScreenIcons[index]}
+                            focused={isFocused}
+                        />
+                    );
+                })}
+            </HStack>
+        </Box>
     );
 }
 
