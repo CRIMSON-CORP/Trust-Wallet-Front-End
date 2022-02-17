@@ -1,31 +1,16 @@
-import React from "react";
-import { Box, Center, HStack, Image, Text, VStack, ScrollView } from "native-base";
-import shortid from "shortid";
-import img from "../../../../assets/coin_logos/bitcoin-btc-logo.png";
+import { Box, Center, HStack, Image, Text, VStack, ScrollView, FlatList } from "native-base";
+
 import Ripple from "../../../../components/Ripple";
-let ASSET_LIST = [
-    {
-        id: shortid.generate(),
-        img: img,
-        name: "Bitcoin",
-        shortName: "BTC",
-        price: 44578.27,
-        change: 4.68,
-        owned: 23,
-    },
-];
-
-ASSET_LIST = ASSET_LIST.map((a) => {
-    a.totalPrice = a.price * a.owned;
-    return a;
-});
-
+import NumberFormat from "react-number-format";
+import { useWalletAssets } from "../../../../context/contexts";
 const Assets = () => {
+    const ASSET_LIST = useWalletAssets();
     return (
-        <ScrollView>
-            <VStack divider={<Box w="100%" h="0.5" bg="gray.50" />}>
-                {ASSET_LIST.map((asset) => (
-                    <Ripple key={asset.id} centered={false}>
+        <VStack divider={<Box w="100%" h="0.5" bg="gray.50" />}>
+            <FlatList
+                data={ASSET_LIST}
+                renderItem={(asset) => (
+                    <Ripple centered={false}>
                         <Box p="4">
                             <HStack space="5" alignItems="center">
                                 <Center
@@ -43,38 +28,70 @@ const Assets = () => {
                                 <VStack flex={1} space="3">
                                     <Text fontSize="md">{asset.name}</Text>
                                     <HStack space="1.5">
-                                        <Text fontSize="xs" opacity={0.5}>
-                                            <Text>${asset.price.toLocaleString()}</Text>
-                                            {asset.change < 0 ? (
-                                                <Text>{asset.change}</Text>
-                                            ) : (
-                                                <Text>{asset.change}</Text>
+                                        <NumberFormat
+                                            displayType="text"
+                                            value={asset.price}
+                                            prefix="$"
+                                            thousandSeparator=","
+                                            decimalScale={2}
+                                            renderText={(value) => (
+                                                <Text fontSize="xs" opacity={0.6}>
+                                                    {value}
+                                                </Text>
                                             )}
-                                        </Text>
+                                        />
+                                        {asset.change < 0 ? (
+                                            <Text fontSize="xs" opacity={0.6} color="red.700">
+                                                {asset.change}%
+                                            </Text>
+                                        ) : (
+                                            <Text fontSize="xs" opacity={0.6} color="green.700">
+                                                {asset.change}%
+                                            </Text>
+                                        )}
                                     </HStack>
                                 </VStack>
                                 <VStack space="3">
-                                    <Text textAlign="right">
-                                        {asset.owned} {asset.shortName}
-                                    </Text>
-                                    <Text textAlign="right" opacity={0.5}>
-                                        ${asset.totalPrice.toLocaleString()}
-                                    </Text>
+                                    <FromatedText
+                                        text={asset.owned}
+                                        suf={asset.shortName}
+                                        align="right"
+                                    />
+                                    {asset.totalPrice !== 0 && (
+                                        <FromatedText
+                                            text={asset.totalPrice}
+                                            dol
+                                            align="right"
+                                            dim
+                                        />
+                                    )}
                                 </VStack>
                             </HStack>
                         </Box>
                     </Ripple>
-                ))}
-                <Ripple
-                    style={{ width: 200, height: 200 }}
-                    centered={false}
-                    overlayStyle={{ top: -10 }}
-                >
-                    <Center flex={1} />
-                </Ripple>
-            </VStack>
-        </ScrollView>
+                )}
+                keyExtractor={(data) => data.id}
+            />
+        </VStack>
     );
 };
 
 export default Assets;
+
+function FromatedText({ text, dol = false, align, suf, dim }) {
+    return (
+        <NumberFormat
+            displayType="text"
+            value={text}
+            prefix={dol && "$"}
+            thousandSeparator=","
+            decimalScale={2}
+            suffix={suf && ` ${suf}`}
+            renderText={(value) => (
+                <Text textAlign={align} opacity={dim && 0.5}>
+                    {value}
+                </Text>
+            )}
+        />
+    );
+}

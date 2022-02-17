@@ -9,6 +9,7 @@ import Animated, {
     useSharedValue,
     withTiming,
 } from "react-native-reanimated";
+import NumberFormat from "react-number-format";
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
 function useTabs() {
