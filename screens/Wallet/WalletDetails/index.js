@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { VStack, ScrollView, View } from "native-base";
 import TabSwitcher from "./TabSwitcher";
-import { View as MotiView } from "moti/";
+import { View as MotiView } from "moti";
 import Assets from "./Assets";
 import { AnimatePresence } from "moti";
 import { Dimensions } from "react-native";
@@ -18,18 +18,17 @@ const WalletDetails = () => {
                         {Index === 0 && (
                             <MotiView
                                 exit={{
-                                    transform: [{ translateX: Dimensions.get("window").width }],
+                                    transform: [{ translateX: -Dimensions.get("window").width }],
+                                }}
+                                animate={{
+                                    transform: [{ translateX: 0 }],
+                                }}
+                                from={{
+                                    transform: [{ translateX: -Dimensions.get("window").width }],
                                 }}
                             >
                                 <Assets />
                             </MotiView>
-                        )}
-                        {Index === 1 && (
-                            <MotiView
-                                exit={{
-                                    transform: [{ translateX: Dimensions.get("window").width }],
-                                }}
-                            ></MotiView>
                         )}
                     </AnimatePresence>
                 </ScrollView>

@@ -16,11 +16,11 @@ const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const TabSwitcher = ({ tabs = [] }) => {
     const { colors } = useTheme();
-    const { TABS, setIndex } = useTabs();
+    const { TABS, Index, setIndex } = useTabs();
     const indicatorPos = useSharedValue(0);
     function setTabAnimation(i) {
         indicatorPos.value = withTiming(
-            i * (WINDOW_WIDTH / tabs.length),
+            i * (WINDOW_WIDTH / TABS.length),
             { easing: Easing.inOut(Easing.quad), duration: 400 },
             () => runOnJS(setIndex)(i)
         );
@@ -41,14 +41,14 @@ const TabSwitcher = ({ tabs = [] }) => {
                         onPress={() => setTabAnimation(i)}
                     >
                         <Center p={"3.5"}>
-                            <TabText index={i} tabIndex={tab} text={t} />
+                            <TabText index={i} tabIndex={Index} text={t} />
                         </Center>
                     </Ripple>
                 ))}
             </HStack>
             <AnimatedBox
                 h={"0.5"}
-                w={tabs.length === 0 ? "100%" : WINDOW_WIDTH / tabs.length}
+                w={TABS.length === 0 ? "100%" : WINDOW_WIDTH / TABS.length}
                 bg={colors.primary[100]}
                 rounded="sm"
                 style={AnimatedBoxStyle}
