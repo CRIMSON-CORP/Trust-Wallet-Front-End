@@ -1,6 +1,6 @@
-import { Text, Dimensions } from "react-native";
-import React, { useState } from "react";
-import { Box, Center, HStack, useTheme } from "native-base";
+import { Dimensions } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Box, Center, HStack, useTheme, Text } from "native-base";
 import Ripple from "../../../../components/Ripple";
 import Animated, {
     Easing,
@@ -17,7 +17,8 @@ function useTabs() {
     return [SelectedTab, setSelectedTab];
 }
 
-const AnimatedoBox = Animated.createAnimatedComponent(Box);
+const AnimatedBox = Animated.createAnimatedComponent(Box);
+const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const TabSwitcher = ({ tabs = [] }) => {
     const { colors } = useTheme();
@@ -46,12 +47,12 @@ const TabSwitcher = ({ tabs = [] }) => {
                         onPress={() => setTabAnimation(i)}
                     >
                         <Center p={"3.5"}>
-                            <Text>{t}</Text>
+                            <TabText index={i} tabIndex={tab} text={t} />
                         </Center>
                     </Ripple>
                 ))}
             </HStack>
-            <AnimatedoBox
+            <AnimatedBox
                 h={"0.5"}
                 w={tabs.length === 0 ? "100%" : WINDOW_WIDTH / tabs.length}
                 bg={colors.primary[100]}
@@ -63,3 +64,18 @@ const TabSwitcher = ({ tabs = [] }) => {
 };
 
 export default TabSwitcher;
+
+function TabText({ index, tabIndex, text }) {
+    const textOpacityShared = useSharedValue(1);
+
+    useEffect(() => {
+        if (index !== tabIndex) {
+            textOpacityShared.value = withTiming(0.5);
+        } else {
+            textOpacityShared.value = withTiming(1);
+        }
+    }, [tabIndex]);
+    const TextOpacityAnimatedStyle = useAnimatedStyle(() => ({ opacity: textOpacityShared.value }));
+
+    return <AnimatedText style={TextOpacityAnimatedStyle}>{text}</AnimatedText>;
+}

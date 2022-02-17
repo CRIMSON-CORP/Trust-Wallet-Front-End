@@ -65,7 +65,11 @@ const Assets = () => {
                         </Box>
                     </Ripple>
                 ))}
-                <Ripple style={{ width: 200, height: 200 }} centered={false}>
+                <Ripple
+                    style={{ width: 200, height: 200 }}
+                    centered={false}
+                    overlayStyle={{ top: -10 }}
+                >
                     <Center flex={1} />
                 </Ripple>
             </VStack>
