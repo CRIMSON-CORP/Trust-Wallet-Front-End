@@ -3,8 +3,7 @@ import TopBar from "./TopBAr";
 import WalletName from "./WalletName";
 import ActionButtons from "./ActionButtons";
 import WalletDetails from "./WalletDetails";
-import { WalletAsset } from "../../context/contexts";
-import { useSharedValue } from "react-native-reanimated";
+import { TabContext, WalletAsset } from "../../context/contexts";
 
 const Wallet = () => {
     const { colors } = useTheme();
@@ -21,7 +20,9 @@ const Wallet = () => {
                             <ActionButtons />
                         </VStack>
                         <Box bg="white" flex={1} borderTopRadius={15}>
-                            <WalletDetails />
+                            <TabContext>
+                                <WalletDetails />
+                            </TabContext>
                         </Box>
                     </VStack>
                 </ScrollView>

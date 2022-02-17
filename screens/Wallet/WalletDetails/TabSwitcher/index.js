@@ -9,27 +9,20 @@ import Animated, {
     useSharedValue,
     withTiming,
 } from "react-native-reanimated";
-import NumberFormat from "react-number-format";
+import { useTabs } from "../../../../context/contexts";
 const WINDOW_WIDTH = Dimensions.get("window").width;
-
-function useTabs() {
-    const [SelectedTab, setSelectedTab] = useState(0);
-
-    return [SelectedTab, setSelectedTab];
-}
-
 const AnimatedBox = Animated.createAnimatedComponent(Box);
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const TabSwitcher = ({ tabs = [] }) => {
     const { colors } = useTheme();
-    const [tab, setTab] = useTabs();
+    const { TABS, setIndex } = useTabs();
     const indicatorPos = useSharedValue(0);
     function setTabAnimation(i) {
         indicatorPos.value = withTiming(
             i * (WINDOW_WIDTH / tabs.length),
             { easing: Easing.inOut(Easing.quad), duration: 400 },
-            () => runOnJS(setTab)(i)
+            () => runOnJS(setIndex)(i)
         );
     }
 
@@ -39,7 +32,7 @@ const TabSwitcher = ({ tabs = [] }) => {
     return (
         <Box>
             <HStack>
-                {tabs.map((t, i) => (
+                {TABS.map((t, i) => (
                     <Ripple
                         key={i}
                         overflow={true}
