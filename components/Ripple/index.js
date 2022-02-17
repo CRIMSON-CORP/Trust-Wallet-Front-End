@@ -17,8 +17,8 @@ export default function Ripple({
     children,
     overflow = true,
     style,
-    onPress,
-    overlaySize = 1.3,
+    onPress = () => {},
+    overlaySize = 1.9,
     overlayStyle,
     centered = true,
 }) {
@@ -35,22 +35,18 @@ export default function Ripple({
             locationX.value = e.x;
             locationY.value = e.y;
             scale.value = withTiming(overlaySize);
-            opacity.value = withTiming(0.9, undefined, () => onPress && runOnJS(onPress)());
+            opacity.value = withTiming(0.8, undefined, () => runOnJS(onPress)());
         },
         onFinish: () => {
-            opacity.value = withDelay(150, withTiming(0));
+            opacity.value = withDelay(200, withTiming(0));
         },
     });
     const AnimatedStyle = useAnimatedStyle(() => ({
         opacity: opacity.value,
         transform: [
+            { translateX: centered ? 0 : locationX.value - ParentDim.width / 2 },
+            { translateY: centered ? 0 : locationY.value - ParentDim.width / 2 },
             { scale: scale.value },
-            ...[
-                centered
-                    ? ({ translateX: locationX.value - ParentDim.width / 2 },
-                      { translateY: locationY.value - ParentDim.width / 2 })
-                    : ({ translateX: 0 }, { translateY: 0 }),
-            ],
         ],
     }));
     return (

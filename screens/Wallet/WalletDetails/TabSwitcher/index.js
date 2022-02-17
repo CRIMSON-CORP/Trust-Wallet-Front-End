@@ -42,7 +42,7 @@ const TabSwitcher = ({ tabs = [] }) => {
                         key={i}
                         overflow={true}
                         style={{ flex: 1 }}
-                        centered={true}
+                        centered={false}
                         onPress={() => setTabAnimation(i)}
                     >
                         <Center p={"3.5"}>

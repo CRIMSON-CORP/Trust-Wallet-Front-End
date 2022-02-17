@@ -1,12 +1,9 @@
-import { HStack, VStack, Box, useTheme, Pressable } from "native-base";
+import { HStack, VStack, Box, useTheme } from "native-base";
 import React, { useEffect } from "react";
-import { Text, View, TouchableNativeFeedback, Touchable } from "react-native";
 
 import { MaterialCommunityIcons, AntDesign, Ionicons } from "@expo/vector-icons";
 import Animated, {
     useSharedValue,
-    crea,
-    useAnimatedProps,
     interpolateColor,
     withTiming,
     useAnimatedStyle,
@@ -83,7 +80,7 @@ function Tab({ name, onPress, icon: { Provider, name: iconName }, focused }) {
         color.value = focused ? withTiming(1) : withTiming(0);
     }, [focused]);
     return (
-        <Ripple style={{ padding: 8, flex: 1 }} onPress={onPress} overflow={false} centered={false}>
+        <Ripple style={{ padding: 8, flex: 1 }} onPress={onPress} overflow={false} centered={true}>
             <VStack alignItems="center">
                 <Box mb={"1"}>
                     <AnimatedIcon name={iconName} size={24} style={AnimatedTextStyle} />
