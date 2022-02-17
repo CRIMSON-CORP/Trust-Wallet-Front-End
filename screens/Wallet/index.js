@@ -4,6 +4,7 @@ import WalletName from "./WalletName";
 import ActionButtons from "./ActionButtons";
 import WalletDetails from "./WalletDetails";
 import { WalletAsset } from "../../context/contexts";
+import { Dimensions } from "react-native";
 
 const Wallet = () => {
     const { colors } = useTheme();
@@ -14,15 +15,17 @@ const Wallet = () => {
                 <Box p={"3"}>
                     <TopBar />
                 </Box>
-                <VStack flex={1} space={"2"}>
-                    <VStack space={"8"} p={"3"}>
-                        <WalletName />
-                        <ActionButtons />
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <VStack flex={1} space={"2"}>
+                        <VStack space={"8"} p={"3"}>
+                            <WalletName />
+                            <ActionButtons />
+                        </VStack>
+                        <Box bg="white" flex={1} borderTopRadius={15}>
+                            <WalletDetails />
+                        </Box>
                     </VStack>
-                    <Box bg="white" flex={1} borderTopRadius={15}>
-                        <WalletDetails />
-                    </Box>
-                </VStack>
+                </ScrollView>
             </VStack>
         </WalletAsset>
     );
