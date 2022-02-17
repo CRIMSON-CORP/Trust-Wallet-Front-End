@@ -8,7 +8,7 @@ export default function TopBar() {
         color: "white",
         size: 26,
     };
-    const ASSET_LIST = useWalletAssets();
+    const { ASSET: ASSET_LIST } = useWalletAssets();
     let sum = 0;
     for (let index = 0; index < ASSET_LIST.length; index++) {
         sum = sum + ASSET_LIST[index].totalPrice;

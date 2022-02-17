@@ -70,8 +70,11 @@ export function useWalletAssets() {
     return useContext(WalletAssetsProvider);
 }
 export function WalletAsset({ children }) {
+    const [ASSET, setASSET] = useState(ASSET_LIST);
     return (
-        <WalletAssetsProvider.Provider value={ASSET_LIST}>{children}</WalletAssetsProvider.Provider>
+        <WalletAssetsProvider.Provider value={{ ASSET, setASSET }}>
+            {children}
+        </WalletAssetsProvider.Provider>
     );
 }
 
