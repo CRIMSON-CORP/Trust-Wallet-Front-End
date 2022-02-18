@@ -9,21 +9,19 @@ import Animated, {
     useSharedValue,
     withTiming,
 } from "react-native-reanimated";
-import { useTabs } from "../../../../context/contexts";
 const WINDOW_WIDTH = Dimensions.get("window").width;
 const AnimatedBox = Animated.createAnimatedComponent(Box);
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
-const TabSwitcher = ({ tabs = [] }) => {
+const TabSwitcher = ({ TABS, setTabIndex, TabIndex }) => {
     const { colors } = useTheme();
-    const { TABS, Index, setIndex } = useTabs();
     const indicatorPos = useSharedValue(0);
     function setTabAnimation(i) {
-        indicatorPos.value = withTiming(
-            i * (WINDOW_WIDTH / TABS.length),
-            { easing: Easing.inOut(Easing.quad), duration: 400 },
-            () => runOnJS(setIndex)(i)
-        );
+        runOnJS(setTabIndex)(i);
+        indicatorPos.value = withTiming(i * (WINDOW_WIDTH / TABS.length), {
+            easing: Easing.inOut(Easing.quad),
+            duration: 400,
+        });
     }
 
     const AnimatedBoxStyle = useAnimatedStyle(() => ({
@@ -41,7 +39,7 @@ const TabSwitcher = ({ tabs = [] }) => {
                         onPress={() => setTabAnimation(i)}
                     >
                         <Center p={"3.5"}>
-                            <TabText index={i} tabIndex={Index} text={t} />
+                            <TabText index={i} tabIndex={TabIndex} text={t} />
                         </Center>
                     </Ripple>
                 ))}

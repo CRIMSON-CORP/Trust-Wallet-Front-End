@@ -1,30 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { VStack, ScrollView, View } from "native-base";
 import TabSwitcher from "./TabSwitcher";
 import { View as MotiView } from "moti";
 import Assets from "./Assets";
 import { AnimatePresence } from "moti";
 import { Dimensions } from "react-native";
-import { useTabs } from "../../../context/contexts";
 
+const windowWidth = Dimensions.get("window").width;
+const TABS = ["Tokens", "NFTs"];
 const WalletDetails = () => {
-    const { Index } = useTabs();
+    const [TabIndex, setTabIndex] = useState(0);
     return (
         <VStack>
-            <TabSwitcher />
+            <TabSwitcher setTabIndex={setTabIndex} TABS={TABS} TabIndex={TabIndex} />
             <View h={590}>
                 <ScrollView nestedScrollEnabled={true}>
                     <AnimatePresence>
-                        {Index === 0 && (
+                        {TabIndex === 0 && (
                             <MotiView
                                 exit={{
-                                    transform: [{ translateX: -Dimensions.get("window").width }],
+                                    transform: [{ translateX: -windowWidth }],
                                 }}
                                 animate={{
                                     transform: [{ translateX: 0 }],
                                 }}
                                 from={{
-                                    transform: [{ translateX: -Dimensions.get("window").width }],
+                                    transform: [{ translateX: -windowWidth }],
+                                }}
+                                transition={{
+                                    type: "timing",
                                 }}
                             >
                                 <Assets />

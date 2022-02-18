@@ -20,11 +20,10 @@ const Asset = ({ asset }) => {
             swipeExe={() => setASSET(ASSET.filter((a) => a.id !== asset.id))}
         >
             <MotiView
-                from={{ marginBottom: -80 }}
                 animate={{ marginBottom: 0 }}
                 exit={{ marginBottom: -80 }}
                 transition={{
-                    easing: "linear",
+                    type: "timing",
                 }}
             >
                 <Ripple centered={false}>
