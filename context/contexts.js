@@ -58,6 +58,78 @@ let ASSET_LIST = [
         change: -0.78,
         owned: 7825,
     },
+    {
+        id: shortid.generate(),
+        img: require("./../assets/coin_logos/polygonpng.png"),
+        name: "Polygon",
+        shortName: "MATIC",
+        price: 1.8,
+        change: -0.78,
+        owned: 7825,
+    },
+    {
+        id: shortid.generate(),
+        img: require("./../assets/coin_logos/polygonpng.png"),
+        name: "Polygon",
+        shortName: "MATIC",
+        price: 1.8,
+        change: -0.78,
+        owned: 7825,
+    },
+    {
+        id: shortid.generate(),
+        img: require("./../assets/coin_logos/polygonpng.png"),
+        name: "Polygon",
+        shortName: "MATIC",
+        price: 1.8,
+        change: -0.78,
+        owned: 7825,
+    },
+    {
+        id: shortid.generate(),
+        img: require("./../assets/coin_logos/polygonpng.png"),
+        name: "Polygon",
+        shortName: "MATIC",
+        price: 1.8,
+        change: -0.78,
+        owned: 7825,
+    },
+    {
+        id: shortid.generate(),
+        img: require("./../assets/coin_logos/polygonpng.png"),
+        name: "Polygon",
+        shortName: "MATIC",
+        price: 1.8,
+        change: -0.78,
+        owned: 7825,
+    },
+    {
+        id: shortid.generate(),
+        img: require("./../assets/coin_logos/polygonpng.png"),
+        name: "Polygon",
+        shortName: "MATIC",
+        price: 1.8,
+        change: -0.78,
+        owned: 7825,
+    },
+    {
+        id: shortid.generate(),
+        img: require("./../assets/coin_logos/polygonpng.png"),
+        name: "Polygon",
+        shortName: "MATIC",
+        price: 1.8,
+        change: -0.78,
+        owned: 7825,
+    },
+    {
+        id: shortid.generate(),
+        img: require("./../assets/coin_logos/polygonpng.png"),
+        name: "Polygon",
+        shortName: "MATIC",
+        price: 1.8,
+        change: -0.78,
+        owned: 7825,
+    },
 ];
 
 ASSET_LIST = ASSET_LIST.map((a) => {
@@ -79,14 +151,3 @@ export function WalletAsset({ children }) {
 }
 
 const TABS = ["Tokens", "NFTs"];
-
-export function useTabs() {
-    return useContext(TabProvider);
-}
-
-export function TabContext({ children }) {
-    const [Index, setIndex] = useState(0);
-    return (
-        <TabProvider.Provider value={{ TABS, Index, setIndex }}>{children}</TabProvider.Provider>
-    );
-}

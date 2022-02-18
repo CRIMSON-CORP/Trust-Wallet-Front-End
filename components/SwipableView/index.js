@@ -1,4 +1,4 @@
-import { View, Text, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import React from "react";
 import Animated, {
     Easing,
@@ -12,7 +12,7 @@ import Animated, {
 import { PanGestureHandler } from "react-native-gesture-handler";
 import { Box } from "native-base";
 
-const SwipableView = ({ children, backFollowSwipe = false, back, swipeExe = () => {} }) => {
+const SwipableView = ({ children, back, swipeExe = () => {}, simGesture }) => {
     const swipeX = useSharedValue(0);
     const SWIPE_LIMIT = 200;
     const SwipeDescider = 128;
@@ -42,7 +42,7 @@ const SwipableView = ({ children, backFollowSwipe = false, back, swipeExe = () =
         transform: [{ translateX: swipeX.value }],
     }));
     return (
-        <PanGestureHandler onGestureEvent={gesture}>
+        <PanGestureHandler onGestureEvent={gesture} simultaneousHandlers={simGesture}>
             <Animated.View style={SwipeAnimatedStyle}>
                 {children}
                 <Box position={"absolute"} height="100%" left="100%" width="100%" bg="red.700">
