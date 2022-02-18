@@ -6,7 +6,7 @@ import NumberFormat from "react-number-format";
 import Ripple from "../../../../../components/Ripple";
 import SwipableView from "../../../../../components/SwipableView";
 import { useWalletAssets } from "../../../../../context/contexts";
-const Asset = ({ asset, simGesture }) => {
+const Asset = ({ asset, simGesture, AssetScroll }) => {
     const { ASSET, setASSET } = useWalletAssets();
     return (
         <SwipableView
@@ -17,8 +17,9 @@ const Asset = ({ asset, simGesture }) => {
                     </Text>
                 </Box>
             }
-            simGesture={simGesture}
+            simGesture={[simGesture, AssetScroll]}
             swipeExe={() => setASSET(ASSET.filter((a) => a.id !== asset.id))}
+            AssetScroll={AssetScroll}
         >
             <MotiView
                 animate={{ marginBottom: 0 }}

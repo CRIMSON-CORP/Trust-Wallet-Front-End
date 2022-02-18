@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { VStack } from "native-base";
 import TabSwitcher from "./TabSwitcher";
 import { View as MotiView } from "moti";
@@ -11,11 +11,10 @@ const TABS = ["Tokens", "NFTs"];
 const WalletDetails = ({ AssetScroll }) => {
     const [TabIndex, setTabIndex] = useState(0);
     const ScrollRef = useRef();
-
     return (
         <VStack>
             <TabSwitcher setTabIndex={setTabIndex} TABS={TABS} TabIndex={TabIndex} />
-            <ScrollView simultaneousHandlers={AssetScroll} ref={ScrollRef}>
+            <ScrollView ref={ScrollRef} simultaneousHandlers={AssetScroll}>
                 <AnimatePresence>
                     {TabIndex === 0 && (
                         <MotiView
@@ -32,7 +31,7 @@ const WalletDetails = ({ AssetScroll }) => {
                                 type: "timing",
                             }}
                         >
-                            <Assets simGesture={ScrollRef} />
+                            <Assets simGesture={ScrollRef} AssetScroll={AssetScroll} />
                         </MotiView>
                     )}
                 </AnimatePresence>
